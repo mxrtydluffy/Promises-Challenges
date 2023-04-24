@@ -78,20 +78,26 @@ function uppercaser(str) {
     });
 }
 
-function spacer(str):
-return new Promise((resolve, reject)) => {
-  setTimeout(() => {
-    if (typeof str === 'string') {
-      let space = '';
-      for (let i = 0; i < str.length; i++) {
-        space += str[i] + ' ';
+function spacer(str) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (typeof str === 'string') {
+        let space = '';
+        for (let i = 0; i < str.length; i++) {
+          space += str[i] + ' ';
+        }
+        resolve(str.split('').join(' '));
+      } else {
+        reject('Argument to spacer must be string')
       }
-      resolve(str.split('').join(' '));
-    } else {
-      reject('Argument to spacer must be a string')
-    }
-  }, 2000)
+    }, 2000)
+  })
 }
+
+
+const name = 'Ducky'
+const my_str = 'foo!!!'
+
 
 greet(name)
     .then((greetResult) => {
@@ -100,7 +106,12 @@ greet(name)
     })
     .then((uppercaserResult) => {
         console.log(uppercaserResult)
-    }).catch((err) => {
+        return spacer(uppercaserResult)
+    })
+    .then((spaceResult) => {
+      console.log(spaceResult)
+    })
+    .catch((err) => {
         console.log('Received an error!')
         console.log(err);
     });
